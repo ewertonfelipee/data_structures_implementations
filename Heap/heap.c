@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include "heap.h"
 
 #define pai(i) (((i)-1)/2) //indice de no pai
@@ -98,4 +99,18 @@ int heap_verifica (Heap* h){
         }
     }
     return 1;
+}
+
+Heap* heap_constroi (int n, float* v){
+
+    Heap* h = (Heap*)malloc(sizeof(Heap));
+    h->n = n;
+    h->nmax = n;
+    h->v =(float*)malloc(h->nmax*sizeof(float));
+    memcpy(h->v, v, n*sizeof(float));
+
+    for(int i=n/2-1; i>=0; --i){
+        desce(h, i);
+    }
+    return h;
 }

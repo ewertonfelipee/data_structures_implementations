@@ -19,3 +19,6 @@ void heap_insere (Heap* h, float value);
 float heap_retira (Heap* h);
 
 int heap_verifica (Heap* h);
+
+// construcao da lista de prioridade
+Heap* heap_constroi (int n, float* v);
