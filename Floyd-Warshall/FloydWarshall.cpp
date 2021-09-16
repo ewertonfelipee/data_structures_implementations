@@ -16,27 +16,20 @@ class Graph{
             this->edges = new int *[V];
             for(int i = 0; i < V; i++){
                 this->edges[i] = new int[V];
-                for(int j = 0; j < V; j++){
-                    this->edges[i][j] = INT_MAX;
-                }
+                for(int j = 0; j < V; j++) this->edges[i][j] = INT_MAX;
                 this->edges[i][i] = 0;
             }
         }
 
-        ~Graph(){
-            for(int i = 0; i < number_vertices; i++)
-                delete[] edges[i];
-            delete[] edges;
-        }
         // adiciona uma dada aresta ao grafo
-        void addEdge(int src, int dist, int weight){
-            this->edges[src][dist] = weight;
+        void addEdge(int src, int dst, int weight){
+            this->edges[src][dst] = weight;
         }
 };
 
 void print_distance(int distance[], int V)
 {
-    cout << "\nA distancia da matrix para o F-W" << endl;
+    cout << "\nA matrix de distancia para o F-W" << endl;
     for(int i = 0; i < V; i++){
         for(int j = 0; j < V; j++){
             if(distance[i*V+j] != INT_MAX)
@@ -48,40 +41,42 @@ void print_distance(int distance[], int V)
     }
 }
 
-void F_W_(Graph graph)
+void F_W(Graph graph)
 {
     int V = graph.number_vertices;
-    int distance[V][V];
+    int dist[V][V];
     // incializa a distancia
     for(int i = 0; i < V; i++){
-        for(int j = 0; j < V; j++)
-            distance[i][j] = graph.edges[i][j];
+        for(int j = 0; j < V; j++){
+            dist[i][j] = graph.edges[i][j];
+        }
     }
 
     for(int k = 0; k < V; k++){
         for(int i = 0; i < V; i++){
             for(int j = 0; j < V; j++)
-                if(distance[i][k] != INT_MAX && distance[k][j] != INT_MAX && 
-                distance[i][k] + distance[k][j] < distance[i][j])
-                    distance[i][j] = distance[i][k] + distance[k][j];
+                if(dist[i][k] != INT_MAX && dist[k][j] != INT_MAX &&
+                    dist[i][k] + dist[k][j] < dist[i][j])
+                    dist[i][j] = dist[i][k] + dist[k][j];
         }
     }
-    // vai converter a matrix em uma array
-    int distance1[V*V];
+    // vai converter a matrix em um array
+    int dist1[V*V];
     for(int i = 0; i < V; i++){
         for(int j = 0; j < V; j++){
-            distance1[i*V+j] = distance[i][j];
+            dist1[i*V+j] = dist[i][j];
         }
     }
 
-    print_distance(distance1, V);
+    print_distance(dist1, V);
 }
 
 // funcao principal
 
 int main()
 {
-    int V, E, src, dist, weight;
+    int V, E;
+    int src, dst, weight;
     cout<< "Digite o numero de vertices: ";
     cin >> V;
     cout<< "Digite o numero de arestas: ";
@@ -91,11 +86,13 @@ int main()
         cout<< "\nAresta " << i + 1 << "\nDigite a fonte: ";
         cin >> src;
         cout << "Digite o destino: ";
-        cin >> dist;
+        cin >> dst;
         cout << "Digite o peso: ";
         cin >> weight;
-        G.addEdge(src, dist, weight);
+        G.addEdge(src, dst, weight);
     }
 
-    F_W_(G);
+    F_W(G);
+
+    return 0;
 }
