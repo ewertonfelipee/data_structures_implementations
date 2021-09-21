@@ -93,3 +93,67 @@ int main()
     cin >> src;
     Dijkstra(src, qtdVertex);
 }
+
+/*
+
+INTPUT:
+Enter with number of vertices: 6
+Enter with number of arcs: 8
+
+Arcs 1
+Enter the source: 1
+Destination: 2
+Enter with weights: 5
+
+Arcs 2
+Enter the source: 1
+Destination: 3
+Enter with weights: 4
+
+Arcs 3
+Enter the source: 1
+Destination: 4
+Enter with weights: 2
+
+Arcs 4
+Enter the source: 1
+Destination: 6
+Enter with weights: 6
+
+Arcs 5
+Enter the source: 2
+Destination: 4
+Enter with weights: 1
+
+Arcs 6
+Enter the source: 2
+Destination: 5
+Enter with weights: 7
+
+Arcs 7
+Enter the source: 3
+Destination: 5
+Enter with weights: 6
+
+Arcs 8
+Enter the source: 4
+Destination: 6
+Enter with weights: 1
+Enter the initial vertex: 1
+
+OUTPUT:
+Vertex Distance from the source
+
+0 9999
+
+1 0
+
+2 5
+
+3 4
+
+4 2
+
+5 10
+
+*/
