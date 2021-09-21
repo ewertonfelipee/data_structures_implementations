@@ -3,7 +3,6 @@ Implementation Dijkstra Algorithm with Priority Queue
 Teacher: Rian Gabriel
 Class: Graph Theory
 */
-// Info about the arcs
 #include <iostream>
 #include <vector>
 #include <cstring>
@@ -14,7 +13,7 @@ Class: Graph Theory
 #define INF 9999
 
 using namespace std;
-
+// Info about the arcs
 typedef struct
 {
     int v;
