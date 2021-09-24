@@ -1,7 +1,7 @@
 /*
 Implementation Dijkstra Algorithm with Priority Queue
 Teacher: Rian Gabriel
-Class: Graph Theory
+Course: Graph Theory
 */
 #include <iostream>
 #include <vector>
@@ -9,8 +9,9 @@ Class: Graph Theory
 #include <climits>
 #include <queue>
 #include <utility>
-#define MAX_V 9999
-#define INF 9999
+
+#define MAX_V 99999
+#define INF 99999
 
 using namespace std;
 // Info about the arcs
@@ -64,96 +65,38 @@ void Dijkstra(int src, int vertices)
             }
         }
     }
-    cout << "\nVertex Distance from the source\n";
-    for (int i = 0; i < vertices; i++)
-    {
-        cout << "\t\n" << i << " " << dist[i] << endl;
+    FILE* arch1 = fopen("out.txt", "w");
+    if(arch1 == NULL){
+        cout << "ERROR" << endl;
+        exit(1);
+    }
+    else{
+        for (int i = 1; i <= vertices; i++)
+        {
+            fprintf(arch1, "%d:%d ", i, dist[i]);
+        }
     }
 }
 
 int main()
 {
     int qtdVertex, arcs, A, B, w, src, vertices;
-    cout << "Enter with number of vertices: ";
-    cin >> qtdVertex;
-    cout << "Enter with number of arcs: ";
-    cin >> arcs;
     vector <TAdj> adj[MAX_V];
     initialize_Graph(qtdVertex);
-    for(int i = 0; i < arcs; i++){
-        cout <<"\nArcs " << i + 1 << "\nEnter the source: ";
-        cin >> A;
-        cout << "Destination: ";
-        cin >> B;
-        cout << "Enter with weights: ";
-        cin >> w;
-        arc(A, B, w);
+    FILE* arch = fopen("in.txt", "r+");
+    if(arch == NULL){
+        cout << "ERROR" << endl;
+        exit(1);
     }
-    cout << "Enter the initial vertex: ";
-    cin >> src;
+    else{
+        fscanf(arch,"%d %d", &qtdVertex, &arcs);
+        for(int i = 0; i < arcs; i++){
+            fscanf(arch,"%d %d %d", &A, &B, &w);
+            arc(A, B, w);
+        }
+        fscanf(arch, "%d", &src);
+    }
     Dijkstra(src, qtdVertex);
+
+    return 0;
 }
-
-/*
-
-INTPUT:
-Enter with number of vertices: 6
-Enter with number of arcs: 8
-
-Arcs 1
-Enter the source: 1
-Destination: 2
-Enter with weights: 5
-
-Arcs 2
-Enter the source: 1
-Destination: 3
-Enter with weights: 4
-
-Arcs 3
-Enter the source: 1
-Destination: 4
-Enter with weights: 2
-
-Arcs 4
-Enter the source: 1
-Destination: 6
-Enter with weights: 6
-
-Arcs 5
-Enter the source: 2
-Destination: 4
-Enter with weights: 1
-
-Arcs 6
-Enter the source: 2
-Destination: 5
-Enter with weights: 7
-
-Arcs 7
-Enter the source: 3
-Destination: 5
-Enter with weights: 6
-
-Arcs 8
-Enter the source: 4
-Destination: 6
-Enter with weights: 1
-Enter the initial vertex: 1
-
-OUTPUT:
-Vertex Distance from the source
-
-0 9999
-
-1 0
-
-2 5
-
-3 4
-
-4 2
-
-5 10
-
-*/
